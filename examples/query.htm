@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>CFajax - Returning query data back</title>
+		
+		<script type='text/javascript' src='/ajax/core/engine.js'></script>
+		<script type='text/javascript' src='/ajax/core/util.js'></script>
+		<script type='text/javascript' src='/ajax/core/settings.js'></script>
+		<script language="javascript">
+			var getWon = function(team) { return team.WON };
+			var getLost = function(team) { return team.LOST }; 
+			var getState = function(team) { return team.STATE };
+		
+			function getNBADivisionStanding()
+			{
+				var _division = DWRUtil.getValue("division");
+				DWREngine._execute(_cfscriptLocation, null, 'nbadivisionstanding', _division, NBADivisionStandingResult);
+			}
+		
+			function NBADivisionStandingResult(teams)
+			{
+				DWRUtil.removeAllRows("teamsBody");
+				DWRUtil.addRows("teamsBody", teams, [ getState, getWon, getLost ])
+			}
+
+			function init()
+			{
+				DWRUtil.useLoadingMessage();
+				DWREngine._errorHandler =  errorHandler;
+				getNBADivisionStanding();
+			}
+		</script>
+	</head>
+	<body onLoad="init()">
+		<h1>NBA Division standing Lookup</h1>
+		<table>
+			<tr>
+				<td>Select a division : </td>
+				<td>
+					<select id="division" name="division" onChange="getNBADivisionStanding()">
+						<option value="AT">Atlantic Division</option>
+						<option value="CE">Central Division</option>
+						<option value="SE">SouthEast Division</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>State</th>
+					<th>Won</th>
+					<th>Lost</th>
+				</tr>
+			</thead>
+			<tbody id="teamsBody">
+			</tbody>
+		</table>
+	</body>
+</html>
+
+
+
+
+

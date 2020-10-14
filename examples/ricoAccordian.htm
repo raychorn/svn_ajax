@@ -1,0 +1,149 @@
+<html>
+	<head>
+		<script type='text/javascript' src='/ajax/core/engine.js'></script>
+		<script type='text/javascript' src='/ajax/core/util.js'></script>
+		<script type='text/javascript' src='/ajax/core/settings.js'></script>
+		<!--- rico specific javascript --->
+	   	<script type='text/javascript' src="/ajax/core/prototype.js"></script>
+	   	<script type='text/javascript' src="/ajax/core/rico.js"></script>
+	   	<style>
+			.accordionTabTitleBar {
+				font-size           : 12px;
+				padding             : 4px 6px 4px 6px;
+				border-style        : solid none solid none;
+				border-top-color    : #BDC7E7;
+				border-bottom-color : #182052;
+				border-width        : 1px 0px 1px 0px;
+			}
+			
+			.accordionTabTitleBarHover {
+				font-size        : 11px;
+				background-color : #1f669b;
+				color            : #000000;
+			}
+			
+			.accordionTabContentBox {
+				font-size        : 11px;
+				border           : 1px solid #1f669b;
+				border-top-width : 0px;
+				padding          : 0px 8px 0px 8px;
+			}
+			
+			#accordionExample {
+				width : 300px;
+			}
+			
+			body, p {
+				font-family : Arial, Helvetica, sans-serif;
+				font-size   : 12px;
+			}
+	   	</style>
+
+		<script> 
+			function init()
+			{
+				new Rico.Accordion( 'accordionExample', {panelHeight:227} ); 
+				$('anothercity').style.display = 'none';
+				DWRUtil.useLoadingMessage();
+				DWREngine._errorHandler =  errorHandler;
+			}
+			
+			function loadAgain()
+			{
+				$('frontdoor').style.display = '';
+				$('anothercity').style.display = 'none';
+				new Effect.FadeTo( 'frontdoor', 1, 250, 4 );				
+			}
+			
+			function loadData(_city)
+			{
+				getCityInfo(_city)
+				$('anothercity').style.display = '';
+				new Effect.FadeTo( 'frontdoor', 0.2, 800, 10, {complete:fadeCompleted} );
+            }
+			
+			function fadeCompleted()
+			{
+				$('frontdoor').style.display = 'none';
+			}
+			
+			function getCityInfo(_city)
+			{
+				DWREngine._execute(_cfscriptLocation, null, 'getAccordianData', _city, getCityInfoResult);
+			}
+			
+			function getCityInfoResult(_cityObject)
+			{
+				DWRUtil.setValue("panel1Content", _cityObject.NEWS);
+				DWRUtil.setValue("panel2Content", _cityObject.CLASSIFIEDS);
+				DWRUtil.setValue("panel3Content", _cityObject.WEATHER);
+			}
+		</script>
+	</head>
+	<body onLoad="init()">
+		<h3>Rico Accordian component</h3>
+		<p>
+			This example demonstrates how simple it is to integrate <a href="http://www.openrico.org" target="_blank">Rico</a> Accordian component (open source library) with CFAjax. for this
+			example you will need "rico.js" from <a href="http://www.openrico.org/dist/rico.js">here</a> 
+			and you will also need the prototype.js library from <a href="http://www.openrico.org/dist/prototype.js">here</a>. Though both of these library are now included
+			with CFAjax installation zip, but if you are interested in know where they come from or want the latest version, you can always vist the rico web site.
+		</p>
+		<p>
+			With rico javascript library you can use various client side Effects and Drag Drop functionality with ease, in the near future additial examples
+			on how to use rico libaray with CFAjax will be posted.
+		</p>
+	
+		<br>
+		
+		<span id="anothercity"><a href="javascript:loadAgain()">Load Another City?</a></span><br>
+		<div style="margin-bottom:0px; position:relative;">		
+			<div style="margin-top:6px; border-top-width:1px; border-top-style:solid;" id="accordionExample">
+				<div id="panel1">
+					<div id="panel1Header" class="accordionTabTitleBar">
+						News
+					</div>
+					<div id="panel1Content"  class="accordionTabContentBox">
+					</div>
+				</div>
+			
+				<div id="panel2">
+					<div id="panel2Header" class="accordionTabTitleBar">
+						Housing Classifieds
+					</div>
+					<div id="panel2Content" class="accordionTabContentBox">
+					</div>
+				</div>
+			
+				<div id="panel3">
+					<div id="panel3Header"  class="accordionTabTitleBar">
+						Weather
+					</div>
+					<div id="panel3Content" class="accordionTabContentBox">
+					</div>
+				</div>
+	
+				<div id="frontdoor" style="height:302px;width:298px;position:absolute;top:1px;left:1px;background-color:#FFFFCC;">
+					<div id="zipinput" style="position:absolute;top:80px;left:12px;right:12px;background-color:#FFFFCC;">
+						<table cellpadding="0" cellspacing="0" >
+							<tr>
+								<td align="center">
+									<p>
+										Are you interested in knowing more about the below listed city? 
+										Click to see detailed information.
+									</p>
+									<p>
+										<center>
+											<a href="javascript:loadData('GA')">Atlanta, Georgia</a><br>
+											<a href="javascript:loadData('VA')">Fairfax, Virginia</a><br>
+											<a href="javascript:loadData('CA')">San Diego, California</a><br>
+										</center>
+									</p>
+								</td>
+							</tr>
+						</table>
+					 </div>
+				 </div>
+			</div>
+		</div>
+	</body>
+</html>

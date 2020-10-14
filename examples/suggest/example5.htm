@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>Suggest - Simple Example</title>
+		<script type='text/javascript' src='/ajax/core/prototype.js'></script>
+		<script type='text/javascript' src='/ajax/core/suggest.js'></script>
+		<script type='text/javascript' src='/ajax/core/engine.js'></script>
+		<script type='text/javascript' src='/ajax/core/util.js'></script>
+		<script type='text/javascript' src='/ajax/core/settings.js'></script>
+
+		<style type="text/css">
+			.listStyle
+			{
+				font-name:Verdana,Arial;
+				font-size:15px;
+				border:1px solid black;
+				padding:"0px 0px 0px 0px";
+			}
+		
+			.listItemStyle
+			{
+				cursor:pointer;
+				border-bottom:1px solid #777777;
+				padding:6px 0px 6px 0px;
+			}
+			
+		
+			.listItemKey
+			{
+				text-align:left;
+				font-weight:bold;
+				padding-left:2px;
+			}
+			
+			.listItemValue
+			{
+				padding-left:2px;
+				text-align:right;
+			}
+
+			.listItemValueII
+			{
+				padding-left:20px;
+				text-align:right;
+			}
+		</style>
+
+		<script language="javascript">
+			var zipLookup1 = new Suggest(); 
+			var zipLookup2 = new Suggest(); 
+			
+			var searchString = "";
+
+			function getData(qry)
+			{
+				searchString = qry;
+				DWREngine._execute(_cfscriptLocation, null, 'getStateList', searchString, getDataResult);
+			}
+			
+			function getDataResult(stateArray)
+			{
+				var key = Array();
+				var value = Array();
+				
+				for (i=0; i < stateArray.length; i++)
+				{
+					key[i] = stateArray[i]['KEY'];
+					value[i] = stateArray[i]['VALUE'];
+				}
+				strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key , value)';
+				eval (strQuery);
+			}
+			
+			function onInit()
+			{
+				zipLookup1.setListStyle("listStyle");
+				zipLookup1.setListItemStyle("listItemStyle");
+				zipLookup1.setListItemKey("listItemKey");
+				zipLookup1.setListItemValue("listItemValue");
+				zipLookup1.setListWidth("220px");
+				zipLookup1.setShowKey(false);
+				zipLookup1.setQueryFieldHolds(1);
+				zipLookup1.InitQueryCode('zipLookup1','fldZipLookup1')
+
+				zipLookup2.setListStyle("listStyle");
+				zipLookup2.setListItemStyle("listItemStyle");
+				zipLookup2.setListItemKey("listItemKey");
+				zipLookup2.setListItemValue("listItemValueII");
+				zipLookup2.setListWidth("220px");
+				zipLookup2.setShowKey(true);
+				zipLookup2.setQueryFieldHolds(0);
+				zipLookup2.InitQueryCode('zipLookup2','fldZipLookup2')
+
+				onSuggestFieldFocus(zipLookup1);
+			}
+			
+		</script>
+	</head>
+	<body onload="onInit()">
+		<p>
+			<b>Multiple CFAjax suggest in one page</b>
+			<br>
+			This example demonstrates how you can have multiple CFAjax suggest in the same page. 
+			Just remember to set individual property for each suggest object.
+			<br><br>
+			In order to use this example, move the cursor focus on the text field and enter inital character 
+			of any us state  e.g   “v” for Virginia.			
+		</p>
+		<p>
+			US State Name [First] : <input id="fldZipLookup1" name="fldZipLookup1" value="" autocomplete="off" onFocus="onSuggestFieldFocus(zipLookup1)" style="width:220px"> 
+			<br><br>
+			US State Name [Second] : <input id="fldZipLookup2" name="fldZipLookup2" value="" autocomplete="off" onFocus="onSuggestFieldFocus(zipLookup2)" style="width:220px"> 
+		</p>
+	</body>
+</html>

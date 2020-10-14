@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>CFajax - Populating Lists Key and Value attribute</title>
+		<script type='text/javascript' src='/ajax/core/engine.js'></script>
+		<script type='text/javascript' src='/ajax/core/util.js'></script>
+		<script type='text/javascript' src='/ajax/core/settings.js'></script>
+		<script language="javascript">
+			function getModel()
+			{
+				var brand = DWRUtil.getValue("brand");
+				DWREngine._execute(_cfscriptLocation, null, 'makelookup', brand, getBrandResult);
+			}
+			
+			function getBrandResult(modelArray)
+			{
+				DWRUtil.removeAllOptions("model");
+				DWRUtil.addOptions("model", modelArray, "KEY", "VALUE");
+				getImageUrl();
+			}
+
+			function getImageUrl()
+			{
+				var model = DWRUtil.getValue("model");
+				
+				document.getElementById("selectedID").innerHTML = model;
+				DWREngine._execute(_cfscriptLocation, null, 'modelImage', model, getImageUrlResult);
+			}
+
+			function getImageUrlResult(result)
+			{
+				document.getElementById("info").innerHTML = result;
+			}
+			
+			function init()
+			{
+				DWRUtil.useLoadingMessage();
+				DWREngine._errorHandler =  errorHandler;
+				getModel();
+			}
+			
+		</script>
+	</head>
+	<body onLoad="init()">
+		<h1>Populating Lists Key and Value attribute</h1>
+		<table>
+			<tr>
+				<td colspan="2">Example</td>
+			</tr>
+			<tr>
+				<td>
+					Select a phone brand :
+				</td>
+				<td>
+					<select id="brand" name="brand" onChange="getModel()">
+						<option value="Nokia">Nokia</option>
+						<option value="Motorolla">Motorolla</option>
+						<option value="Samsung">Samsung</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					Select a phone model :
+				</td>
+				<td>
+					<select name="model" id="model" style="vertical-align:top;" onChange="getImageUrl()"></select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					Model ID :
+				</td>
+				<td>
+					<b><span name="selectedID" id="selectedID" ></span></b>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					Image :
+				</td>
+				<td>
+					<br>
+					<span name="info" id="info"></span>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+
+
+
+
+

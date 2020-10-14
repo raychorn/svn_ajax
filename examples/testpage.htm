@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>CFAjax</title>
+</head>
+
+<body>
+
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="ziplookup">
+	<input type="hidden" name="c0-param0" value="string:30004">
+	<input type="submit" name="submit" value="Test Zip lookup function">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="countylookup">
+	<input type="hidden" name="c0-param0" value="string:VA">
+	<input type="submit" name="submit" value="Test County lookup function">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="stateinfo">
+	<input type="hidden" name="c0-param0" value="string:CA">
+	<input type="submit" name="submit" value="Test State info lookup function">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="nbadivisionstanding">
+	<input type="hidden" name="c0-param0" value="string:SE">
+	<input type="submit" name="submit" value="Test NBA Division Standing Results function">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="makelookup">
+	<input type="hidden" name="c0-param0" value="string:Nokia">
+	<input type="submit" name="submit" value="Test Key Value function">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="companyList">
+	<input type="submit" name="submit" value="Get Company List">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="getAccordianData">
+	<input type="hidden" name="c0-param0" value="string:CA">
+	<input type="submit" name="submit" value="Get Accordian Data">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="getStateList">
+	<input type="hidden" name="c0-param0" value="string:B">
+	<input type="submit" name="submit" value="Get State List">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="stateinfoAfterSessionCheck">
+	<input type="hidden" name="c0-param0" value="string:VA">
+	<input type="submit" name="submit" value="Get State Info - With session check">
+</form>
+
+<form name="frm" method="post" action="functions.cfm">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="stateinfoHttpMethodCheck">
+	<input type="hidden" name="c0-param0" value="string:VA">
+	<input type="submit" name="submit" value="Get State Info - With HTTP method check">
+</form>
+
+<form name="frm" method="post" action="functions.cfm?clientAuthenticationKey=dumb">
+	<input type="hidden" name="callcount" value="1">
+	<input type="hidden" name="c0-id" value="1">
+	<input type="hidden" name="ajax" value="true">
+	<input type="hidden" name="c0-methodname" value="stateinfoClientAuthentication">
+	<input type="hidden" name="c0-param0" value="string:VA">
+	<input type="hidden" name="xclientAuthenticationKey" value="F9%26%3B2%2B%22W0%20%3F%5F%22W%2F%22J1%5F%3D%5DFXOB%25IW%3CQM%5C%3C%40%2DW%3ESC%3C%3A%5EU%3AC%21%29A6GIH%20%0A">
+	<input type="hidden" name="clientAuthenticationKey" value="F9%26%3B2%2B%22W0%20%3F%5F%22W%2F%22J1%5F%3D%5DFXOB%25IW%3CQM">
+	<input type="submit" name="submit" value="Get State Info - Authenticate Client">
+</form>
+
+<script language="javascript">
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>CFajax - Zip lookup example</title>
+		
+		<script type='text/javascript' src='/ajax/core/engine.js'></script>
+		<script type='text/javascript' src='/ajax/core/util.js'></script>
+		<script type='text/javascript' src='/ajax/core/settings.js'></script>
+		<script language="javascript">
+			var highlight = "on";
+			var companyObject = null;
+
+			function action(_action)
+			{
+				highlight = _action;
+				getCompanyInfoResult(companyObject);
+			}
+			
+			function applyAction(content)
+			{
+				if (highlight == "on")
+				{
+					return "<span style='background-color : rgb(255, 255, 180)'>" + content + "</span>";
+				}
+				else
+				{
+					return content;
+				}
+			}
+						
+			function getCompanyInfo()
+			{
+				var company = DWRUtil.getValue("company");
+				DWREngine._execute(_cfscriptLocation, null, 'companyDetails', company, getCompanyInfoResult);
+			}
+			
+			function getCompanyInfoResult(_companyObject)
+			{
+				companyObject = _companyObject;
+				DWRUtil.setValue("contactname", applyAction(companyObject.CONTACTNAME));
+				DWRUtil.setValue("contactnameII", applyAction(companyObject.CONTACTNAME));
+				DWRUtil.setValue("address", applyAction(companyObject.ADDRESS));
+				DWRUtil.setValue("city", applyAction(companyObject.CITY));
+				DWRUtil.setValue("companyname", applyAction(companyObject.COMPANYNAME));
+				DWRUtil.setValue("country", applyAction(companyObject.COUNTRY));
+				DWRUtil.setValue("postalcode", applyAction(companyObject.POSTALCODE));
+				DWRUtil.setValue("date", applyAction(companyObject.DATE));
+			}
+		
+			function init()
+			{
+				DWRUtil.useLoadingMessage();
+				DWREngine._errorHandler =  errorHandler;
+				getCompanyList();
+			}
+			
+			function getCompanyList()
+			{
+				DWREngine._execute(_cfscriptLocation, null, 'companyList', getCompanyListResult);
+			}
+			
+			function getCompanyListResult(companyArray)
+			{
+				DWRUtil.removeAllOptions("company");
+				DWRUtil.addOptions("company", companyArray, "CUSTOMERID", "COMPANYNAME");
+				document.getElementById("company").selectedIndex = 0;
+				getCompanyInfo();
+			}
+			
+			function onCompanySelected()
+			{
+				getCompanyInfo();
+			}
+		</script>
+	</head>
+	<body onLoad="init()">
+		<h1>Letter Generator</h1>
+		<table>
+			<tr>
+				<td valign="top">
+					<b>Select the company:</b><br>
+					<select id="company" size="20" onChange="onCompanySelected()">
+					</select>
+				</td>
+				<td>
+					[ <a href="javascript:action('on')">Highlight On</a> ] &nbsp;&nbsp;&nbsp; [ <a href="javascript:action('off')">Highlight Off</a> ]
+					<table border="1" cellpadding="25" cellspacing="0" width="500">
+						<tr>
+							<td>
+								<font face="verdana, geneva, helvetica" size="2">
+								<p align="center"><strong>John Smith</strong><br>
+								2000 Hanover Square, Virginia, VA 22033]<br>
+								[Phone # (999)827-8199 • Email: myself@yahoosh.com]</p>
+								<p align="left">
+									<span id="date">[Date today]</span>
+								</p>
+								<p>
+									<span id="contactname">[Interviewer's name]</span><br>
+									<span id="companyname">[Company name]</span><br>
+									<span id="address">[Address]</span><br>
+									<span id="city">[City]</span> <span id="postalcode">[Postal Code]</span><br>
+									<span id="country">[Country]</span><br>
+								</p>
+								<p>Dear <span id="contactnameII">[Interviewer's name]</span>:</p>
+								<p>
+									Thank you for taking the time to talk with me on August 2nd for the job of Help Desk support.&nbsp;
+								</p>
+								<p>
+									I am very impressed by the company and would like to be the part of  it. 
+									I do firmly believe my qualification and experience will help the company support structure and further booster 
+									customer satisfaction and sales.
+								</p>
+								<p>
+									I do look forward to hearing from you.
+								</p>
+								<p>Sincerely,</p>
+								<p>John Smith<br>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
